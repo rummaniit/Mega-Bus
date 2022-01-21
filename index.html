@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Ticket</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <h1 id="last-show" class="lstshw"></h1>
+    <main class="main-content container" id="main">
+
+        <div class="booking-content">
+            <h1>Mega City Bus</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book.</p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Explore By Bus</h3>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">From</label>
+                        <input class="inp-style" type="text" name="" placeholder="Dhaka">
+                </div>
+                <div class="input-group">
+                    <label" for="">From</label>
+                        <input class="inp-style" type="text" name="" placeholder="Chittagone">
+                </div>
+            </div>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                        <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+
+            <div class="inputs">
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">First Class ($150)</label>
+                        <input id="first-class" class="inp-style inp-width" type="number" name="" value="0">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <p>
+                            <span id="plus-First">+</span>
+                            <span id="minus-First">-</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">Economy ($100)</label>
+                        <input id="eco-class" class="inp-style inp-width" type="number" name="" value="0">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <p>
+                            <span id="plus-eco">+</span>
+                            <span id="minus-eco">-</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="subtotal">0</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="tax">$50</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="total">$550</p>
+                    </div>
+                </div>
+            </div>
+            <button id="book-now" class="btn-style">Book Now</button>
+        </div>
+    </main>
+
+    <!--Thank You-->
+    <script>
+
+
+        let plusbuttonf = document.getElementById('plus-First')
+        plusbuttonf.addEventListener('click', function () {
+            let firstClass = document.getElementById('first-class').value
+            let firstClassInt = parseInt(firstClass)
+            firstClassInt += 1
+            document.getElementById('first-class').value = firstClassInt
+            subtotal()
+
+        })
+
+        let minusbuttonf = document.getElementById('minus-First')
+        minusbuttonf.addEventListener('click', function () {
+            let firstClass = document.getElementById('first-class').value
+            let firstClassInt = parseInt(firstClass)
+            firstClassInt -= 1
+            if (firstClassInt < 1) {
+                firstClassInt = 0
+                document.getElementById('first-class').value = firstClassInt
+
+            }
+            else {
+                document.getElementById('first-class').value = firstClassInt
+
+            }
+            subtotal()
+
+        })
+
+
+
+        let plusbuttone = document.getElementById('plus-eco')
+        plusbuttone.addEventListener('click', function () {
+            let ecoClass = document.getElementById('eco-class').value
+            let ecoClassInt = parseInt(ecoClass)
+            ecoClassInt += 1
+            document.getElementById('eco-class').value = ecoClassInt
+            subtotal()
+
+        })
+        let minusbuttone = document.getElementById('minus-eco')
+        minusbuttone.addEventListener('click', function () {
+            let ecoClass = document.getElementById('eco-class').value
+            let ecoClassInt = parseInt(ecoClass)
+            ecoClassInt -= 1
+            if (ecoClassInt < 1) {
+                ecoClassInt = 0
+                document.getElementById('eco-class').value = ecoClassInt
+
+            }
+            else {
+                document.getElementById('eco-class').value = ecoClassInt
+            }
+            subtotal()
+
+        })
+
+
+
+        function subtotal() {
+            let firstclssticketcount = document.getElementById('first-class').value
+            let firstclssticketcountint = parseInt(firstclssticketcount)
+            let ecoclssticketcount = document.getElementById('eco-class').value
+            let ecoclssticketcountint = parseInt(ecoclssticketcount)
+
+            let totalSubPrice = (firstclssticketcountint * 150) + (ecoclssticketcountint * 100)
+            document.getElementById('subtotal').innerText = totalSubPrice
+
+            let taxAmount = document.getElementById('tax').innerText
+            let taxAmountfloat = parseFloat(taxAmount)
+            let tatoalTax = (totalSubPrice * 10) / 100
+            document.getElementById('tax').innerText = tatoalTax
+
+            let totalPrice = totalSubPrice + tatoalTax
+            document.getElementById('total').innerText = totalPrice
+            document.getElementById('last-show').innerText = totalPrice
+
+
+        }
+        document.getElementById('book-now').addEventListener('click', function () {
+            let lastShow = document.getElementById('last-show')
+            lastShow.style.display = 'block'
+            let main = document.getElementById('main')
+            main.style.display = 'none'
+        })
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
